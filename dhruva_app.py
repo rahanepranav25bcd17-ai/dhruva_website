@@ -2,8 +2,13 @@ import streamlit as st
 import pandas as pd
 import datetime
 
-# 1. PAGE CONFIG
-st.set_page_config(page_title="D.H.R.U.V.A.", page_icon="🦅", layout="wide", initial_sidebar_state="collapsed")
+# --- PAGE CONFIG ---
+st.set_page_config(
+    page_title="D.H.R.U.V.A. | National Anomaly Research",
+    page_icon="🦅",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
 # --- DATABASE CONNECTION ---
 conn = None
@@ -11,39 +16,45 @@ try:
     from streamlit_gsheets import GSheetsConnection
     conn = st.connection("gsheets", type=GSheetsConnection)
 except Exception as e:
-    st.error(f"DATABASE OFFLINE: {e}")
+    st.error(f"UPLINK FAILED: Check requirements.txt and Secrets. Error: {e}")
 
 # --- AUTH STATE ---
 if 'auth' not in st.session_state: st.session_state['auth'] = False
 access_code = st.query_params.to_dict().get("access")
 
-# 2. PREMIUM CSS
+# --- PREMIUM CSS ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap');
     .stApp { background-color: #000000; color: #FFFFFF; font-family: 'Raleway', sans-serif; }
-    .stTabs [data-baseweb="tab-list"] { background-color: #0A0A0A; justify-content: center; }
+    .stTabs [data-baseweb="tab-list"] { background-color: #0A0A0A; border-bottom: 1px solid #111; justify-content: center; }
     .stTabs [aria-selected="true"] { color: #00D4FF !important; border-bottom: 2px solid #00D4FF; }
     .ips-title { font-family: 'Cinzel', serif; font-size: 55px; text-align: center; letter-spacing: 5px; }
+    .ips-subtitle { font-family: 'Raleway', sans-serif; font-size: 14px; text-align: center; color: #00D4FF; letter-spacing: 4px; }
     .ips-motto { text-align: center; color: #00D4FF; font-style: italic; font-weight: bold; margin-bottom: 30px; }
     .ips-block { background-color: #0A0A0A; border-left: 3px solid #00D4FF; padding: 30px; margin: 30px 0; }
     </style>
 """, unsafe_allow_html=True)
 
-# 3. HEADER
-st.markdown("<div class='ips-title'>D.H.R.U.V.A.</div>", unsafe_allow_html=True)
-st.markdown("<div class='ips-motto'>\"Fear is just missing data. Logic is the cure.\"</div>", unsafe_allow_html=True)
+# --- HEADER ---
+col_h1, col_h2, col_h3 = st.columns([1, 4, 1])
+with col_h2:
+    try: st.image("logo.png", width=150)
+    except: st.markdown("<h1 style='text-align:center;'>🦅</h1>", unsafe_allow_html=True)
+    st.markdown("<div class='ips-title'>D.H.R.U.V.A.</div>", unsafe_allow_html=True)
+    st.markdown("<div class='ips-subtitle'>National Research & Anomaly Society</div>", unsafe_allow_html=True)
+    st.markdown("<div class='ips-motto'>\"Fear is just missing data. Logic is the cure.\"</div>", unsafe_allow_html=True)
 
-# 4. TABS
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["HOME", "ABOUT US", "INVESTIGATIONS", "REPORT MYSTERY", "CONTACT"])
 
 with tab1:
-    col_i1, col_i2 = st.columns([1, 2])
-    with col_i1:
+    st.markdown("<h2 style='text-align:center; font-family:Cinzel;'>WE INVESTIGATE WHAT OTHERS FEAR</h2>", unsafe_allow_html=True)
+    c1, c2 = st.columns([1, 2])
+    with c1:
         try: st.image("gaurav_tiwari.png", use_container_width=True)
-        except: st.info("Late Rev. Gaurav Tiwari")
-    with col_i2:
-        st.markdown("<div class='ips-block'><h3>OUR INSPIRATION</h3><p>\"Ghosts or consciousness survive physical death.\"</p><b>- Late Rev. Gaurav Tiwari</b></div>", unsafe_allow_html=True)
+        except: st.info("Inspiration: Late Rev. Gaurav Tiwari")
+    with c2:
+        st.markdown("<div class='ips-block'><h3>OUR INSPIRATION</h3><p style='font-style:italic;'>\"Ghosts or consciousness survive physical death.\"</p><b>- Late Rev. Gaurav Tiwari</b></div>", unsafe_allow_html=True)
 
 with tab4:
     with st.form("anomaly_form", clear_on_submit=True):
@@ -63,7 +74,7 @@ with tab4:
                     st.success("INTEL RECEIVED.")
                 except Exception as e: st.error(f"Transmission failed: {e}")
 
-# 5. HQ CONTROL
+# --- HQ CONTROL ---
 if access_code == "classified":
     with st.sidebar:
         st.markdown("### 🔐 HQ CONTROL")
