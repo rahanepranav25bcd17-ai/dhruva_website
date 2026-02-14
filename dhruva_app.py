@@ -2,10 +2,10 @@ import streamlit as st
 import pandas as pd
 import datetime
 
-# --- 1. PAGE CONFIG ---
-st.set_page_config(page_title="D.H.R.U.V.A. | National Anomaly Research", page_icon="🦅", layout="wide")
+# 1. PAGE CONFIG
+st.set_page_config(page_title="D.H.R.U.V.A.", page_icon="🦅", layout="wide")
 
-# --- 2. DATABASE CONNECTION (NO-CRASH LOGIC) ---
+# 2. DATABASE CONNECTION (SAFE INITIALIZATION)
 conn = None
 try:
     from streamlit_gsheets import GSheetsConnection
@@ -13,35 +13,31 @@ try:
 except Exception as e:
     st.error(f"Connection Error: {e}")
 
-# --- 3. UI STYLE ---
-st.markdown("""
-    <style>
-    .stApp { background-color: #000000; color: #FFFFFF; }
-    .ips-block { background-color: #0A0A0A; border-left: 3px solid #00D4FF; padding: 25px; margin: 20px 0; }
-    </style>
-""", unsafe_allow_html=True)
-
+# 3. TABS
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["HOME", "ABOUT", "INVESTIGATIONS", "REPORT MYSTERY", "CONTACT"])
 
 with tab3:
     st.markdown("## DECLASSIFIED FILES")
     if conn:
         try:
-            df = conn.read(worksheet="Investigations", ttl=0)
-            for _, row in df.iterrows():
-                st.markdown(f"<div class='ips-block'><h4>{row['Title']}</h4><p>{row['Details']}</p><b>VERDICT: {row['Verdict']}</b></div>", unsafe_allow_html=True)
-        except: st.info("Database empty or restricted.")
+            df_inv = conn.read(worksheet="Investigations", ttl=0)
+            for _, row in df_inv.iterrows():
+                st.markdown(f"**{row['Title']}** ({row['Date']})")
+                st.write(row['Details'])
+                st.caption(f"VERDICT: {row['Verdict']}")
+                st.divider()
+        except: st.info("No cases currently listed.")
 
 with tab4:
-    st.markdown("## REPORT ANOMALY")
-    with st.form("report_form", clear_on_submit=True):
+    st.markdown("## TRANSMIT ANOMALY DATA")
+    with st.form("anomaly_form", clear_on_submit=True):
         fn = st.text_input("FULL NAME *")
         ph = st.text_input("CONTACT NO *")
         lc = st.text_input("LOCATION *")
         ct = st.selectbox("CATEGORY", ["Haunting", "UFO", "Other"])
         ds = st.text_area("DETAILED DESCRIPTION *")
         
-        if st.form_submit_button("TRANSMIT"):
+        if st.form_submit_button("SUBMIT INTEL"):
             if fn and ds and conn:
                 new_row = pd.DataFrame([{
                     "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -55,7 +51,7 @@ with tab4:
                     old_data = conn.read(worksheet="Reports", ttl=0)
                     updated = pd.concat([old_data, new_row], ignore_index=True)
                     conn.update(worksheet="Reports", data=updated)
-                    st.success("INTEL RECEIVED.")
+                    st.success("INTEL RECEIVED PERMANENTLY.")
                 except Exception as e: st.error(f"Sync Error: {e}")
 
 with tab5:
@@ -78,5 +74,5 @@ with tab5:
                     old_msg = conn.read(worksheet="Messages", ttl=0)
                     updated_msg = pd.concat([old_msg, new_msg], ignore_index=True)
                     conn.update(worksheet="Messages", data=updated_msg)
-                    st.success("MESSAGE SENT.")
+                    st.success("MESSAGE TRANSMITTED.")
                 except Exception as e: st.error(f"Sync Error: {e}")
