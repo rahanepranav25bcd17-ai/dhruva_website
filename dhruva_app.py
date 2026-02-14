@@ -10,21 +10,19 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- DATABASE CONNECTION (PERMANENT STORAGE FIXED) ---
+# --- DATABASE CONNECTION ---
 conn = None
 try:
     from streamlit_gsheets import GSheetsConnection
     conn = st.connection("gsheets", type=GSheetsConnection)
 except Exception as e:
-    st.error(f"CONNECTION ERROR: Please ensure 'requirements.txt' is named correctly on GitHub. Details: {e}")
+    st.error(f"SYSTEM ERROR: {e}")
 
 # --- AUTH STATE ---
 if 'auth' not in st.session_state: st.session_state['auth'] = False
+access_code = st.query_params.to_dict().get("access")
 
-query_params = st.query_params
-access_code = query_params.to_dict().get("access")
-
-# 2. IPS PREMIUM CSS (SKY BLUE + GREEN EMAIL)
+# 2. IPS PREMIUM CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap');
@@ -42,7 +40,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. PUBLIC HEADER & MOTTO
+# 3. HEADER
 col_h1, col_h2, col_h3 = st.columns([1, 4, 1])
 with col_h2:
     try: st.image("logo.png", width=150)
@@ -56,88 +54,68 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(["HOME", "ABOUT US", "INVESTIGATIONS", "R
 
 with tab1:
     st.markdown("<h2 style='text-align:center; font-family:Cinzel;'>WE INVESTIGATE WHAT OTHERS FEAR</h2>", unsafe_allow_html=True)
-    st.write("<p style='text-align:center; color:#888;'>Scientific documentation and logical assessment of unexplained phenomena across the Indian subcontinent.</p>", unsafe_allow_html=True)
     col_i1, col_i2 = st.columns([1, 2])
     with col_i1:
         try: st.image("gaurav_tiwari.png", use_container_width=True)
-        except: st.info("Late Rev. Gaurav Tiwari Image")
+        except: st.info("Inspiration: Late Rev. Gaurav Tiwari")
     with col_i2:
-        st.markdown(f"""
-            <div class='ips-block'>
-                <h3 style='color:#00D4FF !important; font-family:Cinzel;'>OUR INSPIRATION</h3>
-                <p style='font-style:italic; font-size:18px; color:#DDD;'>"Ghosts or consciousness survive physical death. Paranormal activity is independent of time."</p>
-                <p style='color:#00D4FF; font-weight:bold; margin-bottom:0;'>- Late Rev. Gaurav Tiwari</p>
-                <p style='color:#555; font-size:12px;'>Founder, Indian Paranormal Society</p>
-                <p style='margin-top:15px; color:#AAA;'>His dedication to replacing fear with logic is the driving force behind D.H.R.U.V.A.</p>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""<div class='ips-block'><h3>OUR INSPIRATION</h3><p style='font-style:italic;'>\"Ghosts or consciousness survive physical death. Paranormal activity is independent of time.\"</p><p style='color:#00D4FF; font-weight:bold;'>- Late Rev. Gaurav Tiwari</p></div>""", unsafe_allow_html=True)
 
 with tab2:
     st.markdown("<h2 style='font-family:Cinzel;'>THE DIRECTORATE</h2>", unsafe_allow_html=True)
     col_dir1, col_dir2 = st.columns([1, 2])
     with col_dir1:
         try: st.image("director.png", width=300)
-        except: st.info("Founder Photo")
+        except: st.info("Pranav Anil Rahane")
     with col_dir2:
-        st.markdown("<h3 style='color:#00D4FF !important;'>Pranav Anil Rahane</h3>", unsafe_allow_html=True)
-        st.caption("Founder & Chief Investigator | CSE (AI & DS), IIIT Kottayam")
-        st.write("D.H.R.U.V.A. (Digital Holistic Residual Unexplained Variable Analysis) is a youth-led unit bridging folklore and modern science.")
+        st.markdown("<h3 style='color:#00D4FF;'>Pranav Anil Rahane</h3>", unsafe_allow_html=True)
+        st.write("Founder & Chief Investigator | CSE (AI & DS), IIIT Kottayam")
 
 with tab3:
     if conn:
         try:
             df_inv = conn.read(worksheet="Investigations", ttl=0)
-            if df_inv.empty:
-                st.info("No declassified files yet.")
-            else:
-                for _, m in df_inv.iterrows():
-                    st.markdown(f"<div class='ips-block'><h4>{m['Title']}</h4><p>{m['Details']}</p><b>VERDICT: {m['Verdict']}</b></div>", unsafe_allow_html=True)
-        except: st.info("Establishing secure uplink to database...")
+            for _, row in df_inv.iterrows():
+                st.markdown(f"<div class='ips-block'><h4>{row['Title']}</h4><p>{row['Details']}</p><b>VERDICT: {row['Verdict']}</b></div>", unsafe_allow_html=True)
+        except: st.info("No declassified files yet.")
 
 with tab4:
     with st.form("anomaly_form", clear_on_submit=True):
         c_a, c_b = st.columns(2)
-        with c_a: name = st.text_input("FULL NAME *"); phone = st.text_input("CONTACT NO *")
-        with c_b: loc = st.text_input("LOCATION *"); m_type = st.selectbox("CATEGORY", ["Haunting", "UFO", "Other"])
-        desc = st.text_area("DETAILED DESCRIPTION *")
+        with c_a: fn = st.text_input("FULL NAME *"); ph = st.text_input("CONTACT NO *")
+        with c_b: lc = st.text_input("LOCATION *"); ct = st.selectbox("CATEGORY", ["Haunting", "UFO", "Other"])
+        ds = st.text_area("DETAILED DESCRIPTION *")
         if st.form_submit_button("TRANSMIT INTEL"):
-            if name and desc and conn:
+            if fn and ds and conn:
                 new_rep = pd.DataFrame([{
                     "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "FULL_NAME": name,
-                    "CONTACT_NUM": phone,
-                    "LOCATION": loc,
-                    "CATEGORY": m_type,
-                    "DETAILED DESCRIPTION": desc
+                    "FULL_NAME": fn, "CONTACT_NUM": ph, "LOCATION": lc, "CATEGORY": ct, "DETAILED DESCRIPTION": ds
                 }])
                 try:
                     ex = conn.read(worksheet="Reports", ttl=0)
                     up = pd.concat([ex, new_rep], ignore_index=True)
                     conn.update(worksheet="Reports", data=up)
-                    st.success("INTEL RECEIVED AT D.H.R.U.V.A. HQ.")
-                except Exception as e: st.error(f"Transmission failed: {e}")
+                    st.success("INTEL RECEIVED.")
+                except Exception as e: st.error(f"Error: {e}")
 
 with tab5:
-    st.markdown(f'<div class="green-box-container"><div style="color:#555; text-align:left; font-size:12px;">Email:</div><a href="mailto:team.dhruva.research@gmail.com" class="email-text">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
+    st.markdown('<div class="green-box-container"><a href="mailto:team.dhruva.research@gmail.com" class="email-text">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
     with st.form("contact_form", clear_on_submit=True):
-        cn = st.text_input("FULL NAME *"); num = st.text_input("NUMBER"); ce = st.text_input("EMAIL *"); cm = st.text_area("MESSAGE *")
+        cn = st.text_input("FULL NAME *"); n = st.text_input("Number"); ce = st.text_input("EMAIL *"); cm = st.text_area("MESSAGE *")
         if st.form_submit_button("SEND MESSAGE"):
             if ce and cm and conn:
                 new_msg = pd.DataFrame([{
                     "Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "FULL_NAME": cn,
-                    "Number": num,
-                    "EMAIL": ce,
-                    "MESSAGE": cm
+                    "FULL_NAME": cn, "Number": n, "EMAIL": ce, "MESSAGE": cm
                 }])
                 try:
                     ex = conn.read(worksheet="Messages", ttl=0)
                     up = pd.concat([ex, new_msg], ignore_index=True)
                     conn.update(worksheet="Messages", data=up)
-                    st.success("MESSAGE TRANSMITTED.")
-                except Exception as e: st.error(f"Storage error: {e}")
+                    st.success("MESSAGE SENT.")
+                except Exception as e: st.error(f"Error: {e}")
 
-# 5. HIDDEN HQ CONTROL
+# HQ CONTROL
 if access_code == "classified":
     with st.sidebar:
         st.markdown("### 🔐 HQ CONTROL")
@@ -145,14 +123,8 @@ if access_code == "classified":
             u = st.text_input("ID"); p = st.text_input("KEY", type="password")
             if st.button("LOGIN"):
                 if u == "Pranav" and p == "DhruvaBot": st.session_state['auth'] = True; st.rerun()
-        
         if st.session_state['auth']:
             st.success("DIRECTOR ONLINE")
-            if st.checkbox("View Reports"):
-                st.dataframe(conn.read(worksheet="Reports", ttl=0))
-            if st.checkbox("View Messages"):
-                st.dataframe(conn.read(worksheet="Messages", ttl=0))
-            
             with st.expander("📤 PUBLISH CASE"):
                 with st.form("pub_case"):
                     mt = st.text_input("Title"); ms = st.selectbox("Verdict", ["SOLVED", "UNEXPLAINED"]); md = st.text_area("Details")
@@ -164,7 +136,7 @@ if access_code == "classified":
                                 up = pd.concat([ex, new_c], ignore_index=True)
                                 conn.update(worksheet="Investigations", data=up)
                                 st.success("Case Live.")
-                            except: st.error("Database error.")
+                            except Exception as e: st.error(f"Database error: {e}")
             if st.button("LOGOUT"): st.session_state['auth'] = False; st.rerun()
 
 st.markdown("<div style='text-align:center; color:#333; font-size:12px; padding:40px;'>© 2026 D.H.R.U.V.A. | LOGIC OVER FEAR</div>", unsafe_allow_html=True)
