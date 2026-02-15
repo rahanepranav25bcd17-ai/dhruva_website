@@ -81,7 +81,7 @@ with tab1:
     with col_i2:
         st.markdown("""<div class='ips-block'><h3 style='font-family:Cinzel;'>OUR ETERNAL INSPIRATION</h3><p style='font-size:18px; font-style:italic; color:#AAA;'>"Ghosts or consciousness survive physical death. Paranormal activity is independent of time."</p><p style='color:#00D4FF; font-weight:bold; margin-top:10px;'>- Late Rev. Gaurav Tiwari</p></div>""", unsafe_allow_html=True)
 
-# --- TAB 2: ABOUT US (UPDATED WITH IMAGE PLACEHOLDERS) ---
+# --- TAB 2: ABOUT US ---
 with tab2:
     st.markdown("<h2 style='font-family:Cinzel; color:white; text-align:center;'>THE DIRECTORATE</h2>", unsafe_allow_html=True)
     c1, c2 = st.columns([1, 2])
@@ -96,17 +96,11 @@ with tab2:
     st.markdown("---")
     st.markdown("<h2 style='font-family:Cinzel; text-align:center;'>FIELD OPERATIONS TEAM</h2>", unsafe_allow_html=True)
     
-    # --- UPDATED TEAM SECTION WITH IMAGE PLACEHOLDERS ---
     t1, t2, t3 = st.columns(3)
     for i, col in enumerate([t1, t2, t3]):
         with col:
-            # Try to load member image, if not found, load GENERIC AGENT image
-            try: 
-                st.image(f"member{i+1}.png", use_container_width=True)
-            except: 
-                # This is the "Place" you wanted - a silhouette image
-                st.image("https://cdn-icons-png.flaticon.com/512/3237/3237472.png", width=150, caption="Classified Personnel")
-            
+            try: st.image(f"member{i+1}.png", use_container_width=True)
+            except: st.image("https://cdn-icons-png.flaticon.com/512/3237/3237472.png", width=150, caption="Classified Personnel")
             m = st.session_state['team'][f"m{i+1}"]
             st.markdown(f"<h4 style='text-align:center; color:#00D4FF;'>{m['name']}</h4>", unsafe_allow_html=True)
             st.markdown(f"<p style='text-align:center; font-size:13px; color:#AAA;'>{m['bio']}</p>", unsafe_allow_html=True)
@@ -189,18 +183,37 @@ if access_code == "classified":
         if st.session_state['auth']:
             st.success("DIRECTOR ONLINE")
             
+            # --- UPLOAD INVESTIGATION ---
+            with st.expander("📂 UPLOAD INVESTIGATION DATA"):
+                with st.form("upload_inv"):
+                    i_title = st.text_input("Case Title (e.g., The Whispering Hall)")
+                    i_verdict = st.selectbox("Verdict", ["UNEXPLAINED", "SOLVED", "PENDING ANALYSIS"])
+                    i_details = st.text_area("Investigation Brief")
+                    if st.form_submit_button("UPLOAD TO ARCHIVES"):
+                        if conn and i_title and i_details:
+                            new_case = pd.DataFrame([{"Title": i_title, "Verdict": i_verdict, "Details": i_details, "Date": str(datetime.date.today())}])
+                            try:
+                                ex = conn.read(worksheet="Investigations", ttl=0)
+                                up = pd.concat([ex, new_case], ignore_index=True)
+                                conn.update(worksheet="Investigations", data=up)
+                                st.success("Case File Published Successfully.")
+                            except Exception as e: st.error(f"Upload Failed: {e}")
+
+            # --- VIEW REPORTS ---
             with st.expander("📩 INCOMING INTEL (Reports)"):
                 try:
                     rep_df = conn.read(worksheet="Reports", ttl=0)
                     st.dataframe(rep_df)
                 except: st.error("No reports found.")
             
+            # --- VIEW MESSAGES ---
             with st.expander("✉️ DIRECT MESSAGES"):
                 try:
                     msg_df = conn.read(worksheet="Messages", ttl=0)
                     st.dataframe(msg_df)
                 except: st.error("No messages found.")
 
+            # --- TEAM MANAGEMENT ---
             with st.expander("👥 TEAM MANAGEMENT"):
                 st.info("Edit names below. (Resets on refresh)")
                 for i in range(1, 4):
