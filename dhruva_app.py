@@ -40,6 +40,7 @@ st.markdown("""
 .ips-title { font-family: 'Cinzel', serif; font-size: 55px; text-align: center; letter-spacing: 5px; color: #FFFFFF; }
 .ips-motto { text-align: center; color: #00D4FF; font-style: italic; font-weight: bold; margin-bottom: 30px; }
 .ips-block { background-color: #0A0A0A; border-left: 3px solid #00D4FF; padding: 30px; margin: 20px 0; }
+.info-box { background-color: #111; padding: 20px; border: 1px solid #222; margin-bottom: 15px; border-radius: 5px; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -53,35 +54,111 @@ with col_h2:
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["HOME", "ABOUT US", "INVESTIGATIONS", "REPORT MYSTERY", "CONTACT"])
 
+# --- UPDATED HOME TAB ---
 with tab1:
-    col_i1, col_i2 = st.columns([1, 2])
+    st.markdown("<h2 style='font-family:Cinzel; text-align:center; margin-bottom:40px;'>THE BRIDGE BETWEEN MYTH AND SCIENCE</h2>", unsafe_allow_html=True)
+    
+    # Mission Statement Block
+    st.markdown("""
+    <div class='ips-block'>
+        <h3 style='color:#00D4FF; font-family:Cinzel;'>OUR CORE MISSION</h3>
+        <p style='font-size:16px; line-height:1.6;'>
+            D.H.R.U.V.A. (Digital Holistic Residual Unexplained Variable Analysis) is India's premier youth-led research initiative dedicated to the scientific study of anomalous phenomena. 
+            We operate on the boundary where folklore ends and empirical evidence begins. Our goal is not to prove the existence of ghosts, but to understand the nature of reality itself.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    c1, c2 = st.columns([1, 1])
+    with c1:
+        st.markdown("""
+        <div class='info-box'>
+            <h4 style='color:#00D4FF;'>🕵️‍♂️ WHAT WE DO</h4>
+            <ul>
+                <li>Scientific Investigation of Haunted Locations</li>
+                <li>UFO & Aerial Phenomenon Documentation</li>
+                <li>Debunking Superstitions through Logic</li>
+                <li>Historical & Folklore Research</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    with c2:
+        st.markdown("""
+        <div class='info-box'>
+            <h4 style='color:#00D4FF;'>🔬 OUR APPROACH</h4>
+            <ul>
+                <li>Environmental Monitoring (EMF, Temperature)</li>
+                <li>Audio/Visual Analysis (EVP, Spectrum)</li>
+                <li>Psychological & Environmental Profiling</li>
+                <li>Data-Driven Conclusion</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    # Inspiration Section (Kept as requested)
+    st.markdown("---")
+    col_i1, col_i2 = st.columns([1, 3])
     with col_i1:
-        try: st.image("gaurav_tiwari.png", use_container_width=True)
+        try: st.image("gaurav_tiwari.png", caption="Late Rev. Gaurav Tiwari", use_container_width=True)
         except: st.info("Late Rev. Gaurav Tiwari")
     with col_i2:
-        st.markdown("<div class='ips-block'><h3>OUR INSPIRATION</h3><p>\"Ghosts or consciousness survive physical death.\"</p><b>- Late Rev. Gaurav Tiwari</b></div>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class='ips-block'>
+            <h3 style='font-family:Cinzel;'>OUR ETERNAL INSPIRATION</h3>
+            <p style='font-size:18px; font-style:italic; color:#AAA;'>"Ghosts or consciousness survive physical death. Paranormal activity is independent of time."</p>
+            <p style='color:#00D4FF; font-weight:bold; margin-top:10px;'>- Late Rev. Gaurav Tiwari</p>
+            <p style='font-size:14px; color:#666;'>Founder, Indian Paranormal Society</p>
+            <p>His dedication to replacing fear with logic is the driving force behind D.H.R.U.V.A. We carry his torch forward, exploring the unknown with respect and scientific rigor.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
+# --- UPDATED ABOUT US TAB ---
 with tab2:
-    st.markdown("<h2 style='font-family:Cinzel; color:white;'>THE DIRECTORATE</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-family:Cinzel; color:white; text-align:center;'>THE DIRECTORATE</h2>", unsafe_allow_html=True)
+    
+    # Director Profile
     c1, c2 = st.columns([1, 2])
     with c1: 
         try: st.image("director.png", width=300)
         except: st.info("Pranav Anil Rahane")
     with c2:
-        st.markdown("<h3 style='color:#00D4FF;'>Pranav Anil Rahane</h3>", unsafe_allow_html=True)
-        st.write("Founder & Chief Investigator | CSE (AI & DS), IIIT Kottayam")
-        st.write("D.H.R.U.V.A. (Digital Holistic Residual Unexplained Variable Analysis) is a youth-led unit bridging folklore and modern science.")
-    
+        st.markdown("<h3 style='color:#00D4FF; font-family:Cinzel; font-size:30px;'>Pranav Anil Rahane</h3>", unsafe_allow_html=True)
+        st.markdown("**Founder & Chief Investigator** | *CSE (AI & DS), IIIT Kottayam*")
+        st.markdown("""
+        <div style='background-color:#111; padding:20px; border-radius:5px; margin-top:20px; border-left:3px solid #00D4FF;'>
+            <p>"I founded D.H.R.U.V.A. with a singular vision: to strip away the fear associated with the unknown. Using my background in Artificial Intelligence and Data Science, 
+            I aim to bring a new level of analytical precision to paranormal research. We are not ghost hunters; we are anomaly researchers."</p>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write("Based in Maharashtra, operating across India.")
+
     st.markdown("---")
-    st.markdown("<h2 style='font-family:Cinzel; text-align:center;'>FIELD TEAM</h2>", unsafe_allow_html=True)
+    
+    # Methodology Section (New)
+    st.markdown("<h2 style='font-family:Cinzel; text-align:center;'>OUR PROTOCOLS</h2>", unsafe_allow_html=True)
+    m1, m2, m3 = st.columns(3)
+    with m1:
+        st.markdown("#### 1. VERIFICATION")
+        st.caption("Every claim is subjected to rigorous background checks, historical analysis, and witness interviewing before we step on site.")
+    with m2:
+        st.markdown("#### 2. INVESTIGATION")
+        st.caption("We utilize state-of-the-art equipment including EMF meters, Spirit Boxes, and thermal imaging to capture raw data.")
+    with m3:
+        st.markdown("#### 3. ANALYSIS")
+        st.caption("Data is reviewed frame-by-frame and audio wave-by-wave. We look for the 'Residual Variable'—that which cannot be explained.")
+
+    st.markdown("---")
+    
+    # Team Section
+    st.markdown("<h2 style='font-family:Cinzel; text-align:center;'>FIELD OPERATIONS TEAM</h2>", unsafe_allow_html=True)
     t1, t2, t3 = st.columns(3)
     for i, col in enumerate([t1, t2, t3]):
         with col:
             try: st.image(f"member{i+1}.png")
-            except: st.markdown("<div style='background-color:#0A0A0A; border:1px solid #1A1A1A; padding:20px; text-align:center; border-radius:10px;'>👤 Awaiting Personnel</div>", unsafe_allow_html=True)
+            except: st.markdown("<div style='background-color:#0A0A0A; border:1px solid #1A1A1A; padding:40px; text-align:center; border-radius:10px;'>👤<br>Awaiting<br>Personnel</div>", unsafe_allow_html=True)
             m = st.session_state['team'][f"m{i+1}"]
-            st.markdown(f"**{m['name']}**")
-            st.caption(m['bio'])
+            st.markdown(f"<h4 style='text-align:center; color:#00D4FF;'>{m['name']}</h4>", unsafe_allow_html=True)
+            st.markdown(f"<p style='text-align:center; font-size:13px; color:#AAA;'>{m['bio']}</p>", unsafe_allow_html=True)
 
 with tab3:
     st.markdown("<h2 style='font-family:Cinzel;'>INVESTIGATION ARCHIVES</h2>", unsafe_allow_html=True)
