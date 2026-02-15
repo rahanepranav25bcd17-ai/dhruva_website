@@ -39,17 +39,6 @@ st.markdown("""
     .ips-title { font-family: 'Cinzel', serif; font-size: 55px; text-align: center; letter-spacing: 5px; color: #FFFFFF; }
     .ips-motto { text-align: center; color: #00D4FF; font-style: italic; font-weight: bold; margin-bottom: 30px; }
     .ips-block { background-color: #0A0A0A; border-left: 3px solid #00D4FF; padding: 30px; margin: 20px 0; }
-    
-    /* IPS-STYLE FOOTER */
-    .footer-container { background-color: #111; border-top: 1px solid #222; padding: 60px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; }
-    .footer-col-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 18px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
-    .footer-text { color: #AAA; font-size: 14px; line-height: 1.6; margin-bottom: 15px; }
-    .footer-quote { color: #FFF; font-style: italic; font-size: 14px; font-family: 'Cinzel', serif; margin-top: 20px; }
-    .footer-link { display: block; color: #AAA; text-decoration: none; margin-bottom: 12px; font-size: 14px; transition: 0.3s; }
-    .footer-link:hover { color: #00D4FF; padding-left: 5px; }
-    .social-icons { display: flex; gap: 15px; margin-top: 20px; }
-    .social-circle { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #AAA; transition: 0.3s; cursor: pointer; text-decoration: none;}
-    .social-circle:hover { border-color: #00D4FF; color: #00D4FF; transform: scale(1.1); }
     </style>
 """, unsafe_allow_html=True)
 
@@ -95,7 +84,6 @@ with tab2:
 
 with tab3:
     st.markdown("<h2 style='font-family:Cinzel;'>INVESTIGATION ARCHIVES</h2>", unsafe_allow_html=True)
-    # --- SCANNING MESSAGE RESTORED ---
     st.info("⚠️ SCANNING FOR DECLASSIFIED INTEL...")
     st.markdown("""
         <div class='ips-block'>
@@ -130,49 +118,48 @@ with tab5:
     st.markdown("<h2 style='font-family:Cinzel;'>CONTACT HQ</h2>", unsafe_allow_html=True)
     st.markdown('<div style="background-color:#0A0A0A; border:1px solid #1A1A1A; padding:30px; text-align:center;"><a href="mailto:team.dhruva.research@gmail.com" style="color:#2ECC71; font-weight:bold; font-size:20px; text-decoration:none;">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
 
-# --- 4. EXACT IPS FOOTER REPLICA ---
-st.markdown("""
+# --- 4. IPS STYLE FOOTER (SAFE RENDER) ---
+footer_html = """
+<style>
+.footer-container { background-color: #111; border-top: 1px solid #222; padding: 60px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; display: flex; flex-wrap: wrap; justify-content: space-between; }
+.footer-col { flex: 1; min-width: 250px; margin-bottom: 20px; padding: 0 10px; }
+.footer-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 16px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+.footer-text { color: #AAA; font-size: 14px; line-height: 1.6; }
+.footer-link { display: block; color: #AAA; text-decoration: none; margin-bottom: 8px; font-size: 14px; }
+.footer-link:hover { color: #00D4FF; }
+</style>
+
 <div class="footer-container">
-    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1200px; margin:0 auto;">
-        
-        <div style="flex: 1.5; min-width: 300px; padding-right: 40px; margin-bottom: 30px;">
-            <div class="footer-col-title">D.H.R.U.V.A. RESEARCH GROUP</div>
-            <div class="footer-text">
-                Investigating the unexplained and documenting paranormal phenomena across India using scientific methodologies since 2026.
-            </div>
-            <div class="footer-quote">"We don't chase ghosts. We investigate them."</div>
+    <div class="footer-col">
+        <div class="footer-title">D.H.R.U.V.A. RESEARCH GROUP</div>
+        <div class="footer-text">
+            Investigating the unexplained and documenting paranormal phenomena across India using scientific methodologies since 2026.
+            <br><br>
+            <i style="color:#00D4FF;">"We don't chase ghosts. We investigate them."</i>
         </div>
-
-        <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
-            <div class="footer-col-title">QUICK LINKS</div>
-            <a href="#" class="footer-link">About Us</a>
-            <a href="#" class="footer-link">Investigations</a>
-            <a href="#" class="footer-link">Report an Incident</a>
-            <a href="#" class="footer-link">Case Files</a>
-            <a href="#" class="footer-link">Blog</a>
-            <a href="#" class="footer-link">Contact</a>
-        </div>
-
-        <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
-            <div class="footer-col-title">CONNECT WITH US</div>
-            <div class="social-icons">
-                <a href="https://www.instagram.com/dhruva.research" target="_blank" class="social-circle">📷</a>
-                <a href="#" class="social-circle">f</a>
-                <a href="#" class="social-circle">▶</a>
-                <a href="#" class="social-circle">🐦</a>
-            </div>
-        </div>
-
     </div>
-    
-    <div style="border-top: 1px solid #333; margin-top: 30px; padding-top: 20px; text-align:right; color: #444; font-size: 12px;">
-        Designed & Developed By Pranav Rahane
+
+    <div class="footer-col">
+        <div class="footer-title">QUICK LINKS</div>
+        <a href="#" class="footer-link">About Us</a>
+        <a href="#" class="footer-link">Investigations</a>
+        <a href="#" class="footer-link">Report an Incident</a>
+        <a href="#" class="footer-link">Case Files</a>
+        <a href="#" class="footer-link">Contact</a>
     </div>
-    <div style="text-align:left; color: #666; font-size: 12px; margin-top:-20px;">
-        © 2026 D.H.R.U.V.A. Research Group. All rights reserved.
+
+    <div class="footer-col">
+        <div class="footer-title">CONNECT WITH US</div>
+        <a href="https://www.instagram.com/dhruva.research" target="_blank" class="footer-link">📷 Instagram</a>
+        <a href="#" class="footer-link">▶ YouTube</a>
+        <a href="#" class="footer-link">🐦 Twitter</a>
     </div>
 </div>
-""", unsafe_allow_html=True)
+<div style="text-align:center; color:#444; font-size:12px; padding:20px;">
+    © 2026 D.H.R.U.V.A. Research Group. All rights reserved. | Designed by Pranav Rahane
+</div>
+"""
+st.markdown(footer_html, unsafe_allow_html=True)
 
 # --- 5. HIDDEN HQ CONTROL ---
 if access_code == "classified":
@@ -189,3 +176,4 @@ if access_code == "classified":
                     mk = f"m{i}"
                     st.session_state['team'][mk]['name'] = st.text_input(f"Member {i} Name", st.session_state['team'][mk]['name'])
                     st.session_state['team'][mk]['bio'] = st.text_area(f"Member {i} Info", st.session_state['team'][mk]['bio'])
+            if st.button("LOGOUT"): st.session_state['auth'] = False; st.rerun()
