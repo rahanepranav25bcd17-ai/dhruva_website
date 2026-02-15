@@ -29,7 +29,7 @@ if 'team' not in st.session_state:
 
 access_code = st.query_params.to_dict().get("access")
 
-# 2. CSS STYLING & FONTAWESOME (For Real Logos)
+# 2. CSS STYLING & FONTAWESOME
 st.markdown("""
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <style>
@@ -113,53 +113,36 @@ with tab5:
     st.markdown("<h2 style='font-family:Cinzel;'>CONTACT HQ</h2>", unsafe_allow_html=True)
     st.markdown('<div style="background-color:#0A0A0A; border:1px solid #1A1A1A; padding:30px; text-align:center;"><a href="mailto:team.dhruva.research@gmail.com" style="color:#2ECC71; font-weight:bold; font-size:20px; text-decoration:none;">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
 
-# --- 4. THE FOOTER WITH REAL LOGOS (FontAwesome) ---
-footer_html = """
-<style>
-.footer-container { background-color: #111; border-top: 1px solid #222; padding: 60px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; display: flex; flex-wrap: wrap; justify-content: space-between; }
-.footer-col { flex: 1; min-width: 250px; margin-bottom: 20px; padding: 0 10px; }
-.footer-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 16px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+# --- 4. THE FOOTER (NO INDENTATION, NO QUICK LINKS) ---
+footer_html = """<style>
+.footer-container { background-color: #111; border-top: 1px solid #222; padding: 60px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;}
+.footer-col { flex: 1; min-width: 300px; margin-bottom: 20px; padding: 0 20px; }
+.footer-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
 .footer-text { color: #AAA; font-size: 14px; line-height: 1.6; }
-.footer-link { display: block; color: #AAA; text-decoration: none; margin-bottom: 8px; font-size: 14px; transition: 0.3s; }
-.footer-link:hover { color: #00D4FF; padding-left: 5px; }
-.social-icons { display: flex; gap: 15px; margin-top: 10px; }
-.social-circle { width: 40px; height: 40px; border: 1px solid #555; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #AAA; text-decoration: none; transition: 0.3s; font-size: 18px; }
-.social-circle:hover { border-color: #00D4FF; color: #00D4FF; transform: scale(1.1); }
+.social-icons { display: flex; gap: 20px; margin-top: 15px; }
+.social-circle { width: 50px; height: 50px; border: 1px solid #555; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #AAA; text-decoration: none; transition: 0.3s; font-size: 24px; }
+.social-circle:hover { border-color: #00D4FF; color: #00D4FF; transform: scale(1.1); box-shadow: 0 0 10px rgba(0,212,255,0.3); }
 </style>
-
 <div class="footer-container">
-    <div class="footer-col" style="flex: 2; padding-right: 40px;">
-        <div class="footer-title">D.H.R.U.V.A. RESEARCH GROUP</div>
-        <div class="footer-text">
-            Investigating the unexplained and documenting paranormal phenomena across India using scientific methodologies since 2026.
-            <br><br>
-            <i style="color:#00D4FF;">"Where science meets the unknown."</i>
-        </div>
-    </div>
-
-    <div class="footer-col">
-        <div class="footer-title">QUICK LINKS</div>
-        <a href="#" class="footer-link">About Us</a>
-        <a href="#" class="footer-link">Investigations</a>
-        <a href="#" class="footer-link">Report an Incident</a>
-        <a href="#" class="footer-link">Case Files</a>
-        <a href="#" class="footer-link">Contact</a>
-    </div>
-
-    <div class="footer-col">
-        <div class="footer-title">CONNECT WITH US</div>
-        <div class="social-icons">
-            <a href="https://www.instagram.com/dhruva.research" target="_blank" class="social-circle"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com" target="_blank" class="social-circle"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.youtube.com" target="_blank" class="social-circle"><i class="fab fa-youtube"></i></a>
-            <a href="https://twitter.com" target="_blank" class="social-circle"><i class="fab fa-twitter"></i></a>
-        </div>
-    </div>
+<div class="footer-col" style="flex: 2;">
+<div class="footer-title">D.H.R.U.V.A. RESEARCH GROUP</div>
+<div class="footer-text">
+Investigating the unexplained and documenting paranormal phenomena across India using scientific methodologies since 2026.
+<br><br>
+<i style="color:#00D4FF;">"Where science meets the unknown."</i>
+</div>
+</div>
+<div class="footer-col" style="flex: 1; text-align: center;">
+<div class="footer-title">CONNECT WITH US</div>
+<div class="social-icons" style="justify-content: center;">
+<a href="https://www.instagram.com/dhruva.research" target="_blank" class="social-circle"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
 </div>
 <div style="text-align:center; color:#444; font-size:12px; padding:20px; border-top:1px solid #222; background-color:#111;">
-    © 2026 D.H.R.U.V.A. Research Group. All rights reserved. | Designed by Pranav Rahane
-</div>
-"""
+© 2026 D.H.R.U.V.A. Research Group. All rights reserved. | Designed by Pranav Rahane
+</div>"""
+
 st.markdown(footer_html, unsafe_allow_html=True)
 
 # --- 5. HIDDEN HQ CONTROL ---
