@@ -29,7 +29,7 @@ if 'team' not in st.session_state:
 
 access_code = st.query_params.to_dict().get("access")
 
-# 2. CSS STYLING (Including IPS Footer)
+# 2. CSS STYLING
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap');
@@ -40,16 +40,16 @@ st.markdown("""
     .ips-motto { text-align: center; color: #00D4FF; font-style: italic; font-weight: bold; margin-bottom: 30px; }
     .ips-block { background-color: #0A0A0A; border-left: 3px solid #00D4FF; padding: 30px; margin: 20px 0; }
     
-    /* IPS FOOTER STYLES */
-    .footer-container { background-color: #0A0A0A; border-top: 1px solid #222; padding: 50px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; }
-    .footer-col-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 16px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+    /* IPS-STYLE FOOTER */
+    .footer-container { background-color: #111; border-top: 1px solid #222; padding: 60px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; }
+    .footer-col-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 18px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
     .footer-text { color: #AAA; font-size: 14px; line-height: 1.6; margin-bottom: 15px; }
-    .footer-quote { color: #FFF; font-style: italic; font-size: 14px; font-family: 'Cinzel', serif; }
-    .footer-link { display: block; color: #AAA; text-decoration: none; margin-bottom: 10px; font-size: 14px; transition: 0.3s; }
+    .footer-quote { color: #FFF; font-style: italic; font-size: 14px; font-family: 'Cinzel', serif; margin-top: 20px; }
+    .footer-link { display: block; color: #AAA; text-decoration: none; margin-bottom: 12px; font-size: 14px; transition: 0.3s; }
     .footer-link:hover { color: #00D4FF; padding-left: 5px; }
-    .social-icons { display: flex; gap: 15px; }
-    .social-circle { width: 35px; height: 35px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #AAA; transition: 0.3s; }
-    .social-circle:hover { border-color: #00D4FF; color: #00D4FF; }
+    .social-icons { display: flex; gap: 15px; margin-top: 20px; }
+    .social-circle { width: 40px; height: 40px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #AAA; transition: 0.3s; cursor: pointer; text-decoration: none;}
+    .social-circle:hover { border-color: #00D4FF; color: #00D4FF; transform: scale(1.1); }
     </style>
 """, unsafe_allow_html=True)
 
@@ -95,7 +95,7 @@ with tab2:
 
 with tab3:
     st.markdown("<h2 style='font-family:Cinzel;'>INVESTIGATION ARCHIVES</h2>", unsafe_allow_html=True)
-    # --- MESSAGE RESTORED HERE ---
+    # --- SCANNING MESSAGE RESTORED ---
     st.info("⚠️ SCANNING FOR DECLASSIFIED INTEL...")
     st.markdown("""
         <div class='ips-block'>
@@ -130,16 +130,15 @@ with tab5:
     st.markdown("<h2 style='font-family:Cinzel;'>CONTACT HQ</h2>", unsafe_allow_html=True)
     st.markdown('<div style="background-color:#0A0A0A; border:1px solid #1A1A1A; padding:30px; text-align:center;"><a href="mailto:team.dhruva.research@gmail.com" style="color:#2ECC71; font-weight:bold; font-size:20px; text-decoration:none;">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
 
-# --- 4. EXACT IPS STYLE FOOTER ---
+# --- 4. EXACT IPS FOOTER REPLICA ---
 st.markdown("""
 <div class="footer-container">
     <div style="display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1200px; margin:0 auto;">
         
-        <div style="flex: 2; min-width: 300px; padding-right: 40px; margin-bottom: 30px;">
+        <div style="flex: 1.5; min-width: 300px; padding-right: 40px; margin-bottom: 30px;">
             <div class="footer-col-title">D.H.R.U.V.A. RESEARCH GROUP</div>
             <div class="footer-text">
-                Investigating the unexplained and documenting paranormal phenomena across India using scientific methodologies.
-                Bridging the gap between folklore and modern science since 2026.
+                Investigating the unexplained and documenting paranormal phenomena across India using scientific methodologies since 2026.
             </div>
             <div class="footer-quote">"We don't chase ghosts. We investigate them."</div>
         </div>
@@ -157,19 +156,20 @@ st.markdown("""
         <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
             <div class="footer-col-title">CONNECT WITH US</div>
             <div class="social-icons">
-                <a href="https://www.instagram.com/dhruva.research" target="_blank" style="text-decoration:none;">
-                    <div class="social-circle">📷</div>
-                </a>
-                <div class="social-circle">f</div>
-                <div class="social-circle">▶</div>
-                <div class="social-circle">🐦</div>
+                <a href="https://www.instagram.com/dhruva.research" target="_blank" class="social-circle">📷</a>
+                <a href="#" class="social-circle">f</a>
+                <a href="#" class="social-circle">▶</a>
+                <a href="#" class="social-circle">🐦</a>
             </div>
         </div>
 
     </div>
     
-    <div style="border-top: 1px solid #333; margin-top: 30px; padding-top: 20px; text-align: center; color: #666; font-size: 12px;">
-        © 2026 D.H.R.U.V.A. Research Group. All rights reserved. | Designed & Developed by Pranav Rahane
+    <div style="border-top: 1px solid #333; margin-top: 30px; padding-top: 20px; text-align:right; color: #444; font-size: 12px;">
+        Designed & Developed By Pranav Rahane
+    </div>
+    <div style="text-align:left; color: #666; font-size: 12px; margin-top:-20px;">
+        © 2026 D.H.R.U.V.A. Research Group. All rights reserved.
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -189,4 +189,3 @@ if access_code == "classified":
                     mk = f"m{i}"
                     st.session_state['team'][mk]['name'] = st.text_input(f"Member {i} Name", st.session_state['team'][mk]['name'])
                     st.session_state['team'][mk]['bio'] = st.text_area(f"Member {i} Info", st.session_state['team'][mk]['bio'])
-            if st.button("LOGOUT"): st.session_state['auth'] = False; st.rerun()
