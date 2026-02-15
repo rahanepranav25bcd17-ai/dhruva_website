@@ -22,9 +22,9 @@ except Exception as e:
 if 'auth' not in st.session_state: st.session_state['auth'] = False
 if 'team' not in st.session_state:
     st.session_state['team'] = {
-        "m1": {"name": "Slot 01", "bio": "Awaiting Personnel..."},
-        "m2": {"name": "Slot 02", "bio": "Awaiting Personnel..."},
-        "m3": {"name": "Slot 03", "bio": "Awaiting Personnel..."}
+        "m1": {"name": "Agent Alpha", "bio": "Specialist in Thermal Imaging & EMF Analysis."},
+        "m2": {"name": "Agent Beta", "bio": "Historian & Occult Researcher."},
+        "m3": {"name": "Agent Gamma", "bio": "Tech Support & Drone Operator."}
     }
 
 access_code = st.query_params.to_dict().get("access")
@@ -54,69 +54,36 @@ with col_h2:
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["HOME", "ABOUT US", "INVESTIGATIONS", "REPORT MYSTERY", "CONTACT"])
 
-# --- UPDATED HOME TAB ---
+# --- TAB 1: HOME ---
 with tab1:
     st.markdown("<h2 style='font-family:Cinzel; text-align:center; margin-bottom:40px;'>THE BRIDGE BETWEEN MYTH AND SCIENCE</h2>", unsafe_allow_html=True)
-    
-    # Mission Statement Block
     st.markdown("""
     <div class='ips-block'>
         <h3 style='color:#00D4FF; font-family:Cinzel;'>OUR CORE MISSION</h3>
         <p style='font-size:16px; line-height:1.6;'>
             D.H.R.U.V.A. (Digital Holistic Residual Unexplained Variable Analysis) is India's premier youth-led research initiative dedicated to the scientific study of anomalous phenomena. 
-            We operate on the boundary where folklore ends and empirical evidence begins. Our goal is not to prove the existence of ghosts, but to understand the nature of reality itself.
+            We operate on the boundary where folklore ends and empirical evidence begins.
         </p>
     </div>
     """, unsafe_allow_html=True)
 
     c1, c2 = st.columns([1, 1])
     with c1:
-        st.markdown("""
-        <div class='info-box'>
-            <h4 style='color:#00D4FF;'>🕵️‍♂️ WHAT WE DO</h4>
-            <ul>
-                <li>Scientific Investigation of Haunted Locations</li>
-                <li>UFO & Aerial Phenomenon Documentation</li>
-                <li>Debunking Superstitions through Logic</li>
-                <li>Historical & Folklore Research</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""<div class='info-box'><h4 style='color:#00D4FF;'>🕵️‍♂️ WHAT WE DO</h4><ul><li>Scientific Investigation of Haunted Locations</li><li>UFO & Aerial Phenomenon Documentation</li><li>Debunking Superstitions through Logic</li></ul></div>""", unsafe_allow_html=True)
     with c2:
-        st.markdown("""
-        <div class='info-box'>
-            <h4 style='color:#00D4FF;'>🔬 OUR APPROACH</h4>
-            <ul>
-                <li>Environmental Monitoring (EMF, Temperature)</li>
-                <li>Audio/Visual Analysis (EVP, Spectrum)</li>
-                <li>Psychological & Environmental Profiling</li>
-                <li>Data-Driven Conclusion</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""<div class='info-box'><h4 style='color:#00D4FF;'>🔬 OUR APPROACH</h4><ul><li>Environmental Monitoring (EMF, Temperature)</li><li>Audio/Visual Analysis (EVP, Spectrum)</li><li>Data-Driven Conclusion</li></ul></div>""", unsafe_allow_html=True)
 
-    # Inspiration Section (Kept as requested)
     st.markdown("---")
     col_i1, col_i2 = st.columns([1, 3])
     with col_i1:
         try: st.image("gaurav_tiwari.png", caption="Late Rev. Gaurav Tiwari", use_container_width=True)
         except: st.info("Late Rev. Gaurav Tiwari")
     with col_i2:
-        st.markdown("""
-        <div class='ips-block'>
-            <h3 style='font-family:Cinzel;'>OUR ETERNAL INSPIRATION</h3>
-            <p style='font-size:18px; font-style:italic; color:#AAA;'>"Ghosts or consciousness survive physical death. Paranormal activity is independent of time."</p>
-            <p style='color:#00D4FF; font-weight:bold; margin-top:10px;'>- Late Rev. Gaurav Tiwari</p>
-            <p style='font-size:14px; color:#666;'>Founder, Indian Paranormal Society</p>
-            <p>His dedication to replacing fear with logic is the driving force behind D.H.R.U.V.A. We carry his torch forward, exploring the unknown with respect and scientific rigor.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown("""<div class='ips-block'><h3 style='font-family:Cinzel;'>OUR ETERNAL INSPIRATION</h3><p style='font-size:18px; font-style:italic; color:#AAA;'>"Ghosts or consciousness survive physical death. Paranormal activity is independent of time."</p><p style='color:#00D4FF; font-weight:bold; margin-top:10px;'>- Late Rev. Gaurav Tiwari</p></div>""", unsafe_allow_html=True)
 
-# --- UPDATED ABOUT US TAB ---
+# --- TAB 2: ABOUT US (UPDATED WITH IMAGE PLACEHOLDERS) ---
 with tab2:
     st.markdown("<h2 style='font-family:Cinzel; color:white; text-align:center;'>THE DIRECTORATE</h2>", unsafe_allow_html=True)
-    
-    # Director Profile
     c1, c2 = st.columns([1, 2])
     with c1: 
         try: st.image("director.png", width=300)
@@ -124,47 +91,31 @@ with tab2:
     with c2:
         st.markdown("<h3 style='color:#00D4FF; font-family:Cinzel; font-size:30px;'>Pranav Anil Rahane</h3>", unsafe_allow_html=True)
         st.markdown("**Founder & Chief Investigator** | *CSE (AI & DS), IIIT Kottayam*")
-        st.markdown("""
-        <div style='background-color:#111; padding:20px; border-radius:5px; margin-top:20px; border-left:3px solid #00D4FF;'>
-            <p>"I founded D.H.R.U.V.A. with a singular vision: to strip away the fear associated with the unknown. Using my background in Artificial Intelligence and Data Science, 
-            I aim to bring a new level of analytical precision to paranormal research. We are not ghost hunters; we are anomaly researchers."</p>
-        </div>
-        """, unsafe_allow_html=True)
-        st.write("Based in Maharashtra, operating across India.")
-
-    st.markdown("---")
+        st.markdown("""<div style='background-color:#111; padding:20px; border-radius:5px; margin-top:20px; border-left:3px solid #00D4FF;'><p>"I founded D.H.R.U.V.A. with a singular vision: to strip away the fear associated with the unknown. We are not ghost hunters; we are anomaly researchers."</p></div>""", unsafe_allow_html=True)
     
-    # Methodology Section (New)
-    st.markdown("<h2 style='font-family:Cinzel; text-align:center;'>OUR PROTOCOLS</h2>", unsafe_allow_html=True)
-    m1, m2, m3 = st.columns(3)
-    with m1:
-        st.markdown("#### 1. VERIFICATION")
-        st.caption("Every claim is subjected to rigorous background checks, historical analysis, and witness interviewing before we step on site.")
-    with m2:
-        st.markdown("#### 2. INVESTIGATION")
-        st.caption("We utilize state-of-the-art equipment including EMF meters, Spirit Boxes, and thermal imaging to capture raw data.")
-    with m3:
-        st.markdown("#### 3. ANALYSIS")
-        st.caption("Data is reviewed frame-by-frame and audio wave-by-wave. We look for the 'Residual Variable'—that which cannot be explained.")
-
     st.markdown("---")
-    
-    # Team Section
     st.markdown("<h2 style='font-family:Cinzel; text-align:center;'>FIELD OPERATIONS TEAM</h2>", unsafe_allow_html=True)
+    
+    # --- UPDATED TEAM SECTION WITH IMAGE PLACEHOLDERS ---
     t1, t2, t3 = st.columns(3)
     for i, col in enumerate([t1, t2, t3]):
         with col:
-            try: st.image(f"member{i+1}.png")
-            except: st.markdown("<div style='background-color:#0A0A0A; border:1px solid #1A1A1A; padding:40px; text-align:center; border-radius:10px;'>👤<br>Awaiting<br>Personnel</div>", unsafe_allow_html=True)
+            # Try to load member image, if not found, load GENERIC AGENT image
+            try: 
+                st.image(f"member{i+1}.png", use_container_width=True)
+            except: 
+                # This is the "Place" you wanted - a silhouette image
+                st.image("https://cdn-icons-png.flaticon.com/512/3237/3237472.png", width=150, caption="Classified Personnel")
+            
             m = st.session_state['team'][f"m{i+1}"]
             st.markdown(f"<h4 style='text-align:center; color:#00D4FF;'>{m['name']}</h4>", unsafe_allow_html=True)
             st.markdown(f"<p style='text-align:center; font-size:13px; color:#AAA;'>{m['bio']}</p>", unsafe_allow_html=True)
 
+# --- TAB 3: INVESTIGATIONS ---
 with tab3:
     st.markdown("<h2 style='font-family:Cinzel;'>INVESTIGATION ARCHIVES</h2>", unsafe_allow_html=True)
     st.info("⚠️ SCANNING FOR DECLASSIFIED INTEL...")
     st.markdown("""<div class='ips-block'><b>STATUS: INITIAL PHASE</b><br>D.H.R.U.V.A. is currently active at multiple undisclosed locations. We are analyzing residual variables. Case files will remain encrypted until final verification.</div>""", unsafe_allow_html=True)
-    
     if conn:
         try:
             df = conn.read(worksheet="Investigations", ttl=0)
@@ -172,6 +123,7 @@ with tab3:
                 st.markdown(f"<div class='ips-block'><h4>{row['Title']}</h4><p>{row['Details']}</p><b>{row['Verdict']}</b></div>", unsafe_allow_html=True)
         except: pass
 
+# --- TAB 4: REPORT MYSTERY ---
 with tab4:
     with st.form("report_form", clear_on_submit=True):
         st.markdown("<h3 style='font-family:Cinzel;'>TRANSMIT ANOMALY DATA</h3>", unsafe_allow_html=True)
@@ -186,11 +138,12 @@ with tab4:
                     st.success("INTEL RECEIVED.")
                 except Exception as e: st.error(f"Sync Failed: {e}")
 
+# --- TAB 5: CONTACT ---
 with tab5:
     st.markdown("<h2 style='font-family:Cinzel;'>CONTACT HQ</h2>", unsafe_allow_html=True)
     st.markdown('<div style="background-color:#0A0A0A; border:1px solid #1A1A1A; padding:30px; text-align:center;"><a href="mailto:team.dhruva.research@gmail.com" style="color:#2ECC71; font-weight:bold; font-size:20px; text-decoration:none;">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
 
-# --- 4. THE FOOTER (NO INDENTATION - FIXED) ---
+# --- FOOTER ---
 footer_style = """
 <style>
 .footer-container { background-color: #111; border-top: 1px solid #222; padding: 60px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;}
@@ -202,7 +155,6 @@ footer_style = """
 .social-circle:hover { border-color: #00D4FF; color: #00D4FF; transform: scale(1.1); box-shadow: 0 0 10px rgba(0,212,255,0.3); }
 </style>
 """
-
 footer_content = """
 <div class="footer-container">
 <div class="footer-col" style="flex: 2;">
@@ -224,7 +176,6 @@ Investigating the unexplained and documenting paranormal phenomena across India 
 © 2026 D.H.R.U.V.A. Research Group. All rights reserved. | Designed by Pranav Rahane
 </div>
 """
-
 st.markdown(footer_style + footer_content, unsafe_allow_html=True)
 
 # --- 5. HIDDEN HQ CONTROL ---
@@ -237,9 +188,24 @@ if access_code == "classified":
                 if u == "Pranav" and p == "DhruvaBot": st.session_state['auth'] = True; st.rerun()
         if st.session_state['auth']:
             st.success("DIRECTOR ONLINE")
+            
+            with st.expander("📩 INCOMING INTEL (Reports)"):
+                try:
+                    rep_df = conn.read(worksheet="Reports", ttl=0)
+                    st.dataframe(rep_df)
+                except: st.error("No reports found.")
+            
+            with st.expander("✉️ DIRECT MESSAGES"):
+                try:
+                    msg_df = conn.read(worksheet="Messages", ttl=0)
+                    st.dataframe(msg_df)
+                except: st.error("No messages found.")
+
             with st.expander("👥 TEAM MANAGEMENT"):
+                st.info("Edit names below. (Resets on refresh)")
                 for i in range(1, 4):
                     mk = f"m{i}"
                     st.session_state['team'][mk]['name'] = st.text_input(f"Member {i} Name", st.session_state['team'][mk]['name'])
                     st.session_state['team'][mk]['bio'] = st.text_area(f"Member {i} Info", st.session_state['team'][mk]['bio'])
+            
             if st.button("LOGOUT"): st.session_state['auth'] = False; st.rerun()
