@@ -2,8 +2,13 @@ import streamlit as st
 import pandas as pd
 import datetime
 
-# --- 1. PAGE CONFIG ---
-st.set_page_config(page_title="D.H.R.U.V.A.", page_icon="🦅", layout="wide", initial_sidebar_state="collapsed")
+# 1. PAGE CONFIG
+st.set_page_config(
+    page_title="D.H.R.U.V.A.",
+    page_icon="🦅",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
 # --- DATABASE CONNECTION ---
 conn = None
@@ -24,7 +29,7 @@ if 'team' not in st.session_state:
 
 access_code = st.query_params.to_dict().get("access")
 
-# --- 2. CSS STYLE ---
+# 2. CSS STYLING (Including IPS Footer)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300;400&display=swap');
@@ -34,12 +39,21 @@ st.markdown("""
     .ips-title { font-family: 'Cinzel', serif; font-size: 55px; text-align: center; letter-spacing: 5px; color: #FFFFFF; }
     .ips-motto { text-align: center; color: #00D4FF; font-style: italic; font-weight: bold; margin-bottom: 30px; }
     .ips-block { background-color: #0A0A0A; border-left: 3px solid #00D4FF; padding: 30px; margin: 20px 0; }
-    .footer-container { background-color: #0A0A0A; border-top: 1px solid #1A1A1A; padding: 40px 20px; margin-top: 60px; color: #AAA; }
-    .footer-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 18px; letter-spacing: 2px; }
+    
+    /* IPS FOOTER STYLES */
+    .footer-container { background-color: #0A0A0A; border-top: 1px solid #222; padding: 50px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; }
+    .footer-col-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 16px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+    .footer-text { color: #AAA; font-size: 14px; line-height: 1.6; margin-bottom: 15px; }
+    .footer-quote { color: #FFF; font-style: italic; font-size: 14px; font-family: 'Cinzel', serif; }
+    .footer-link { display: block; color: #AAA; text-decoration: none; margin-bottom: 10px; font-size: 14px; transition: 0.3s; }
+    .footer-link:hover { color: #00D4FF; padding-left: 5px; }
+    .social-icons { display: flex; gap: 15px; }
+    .social-circle { width: 35px; height: 35px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #AAA; transition: 0.3s; }
+    .social-circle:hover { border-color: #00D4FF; color: #00D4FF; }
     </style>
 """, unsafe_allow_html=True)
 
-# --- 3. HEADER & LOGO ---
+# 3. HEADER
 col_h1, col_h2, col_h3 = st.columns([1, 4, 1])
 with col_h2:
     try: st.image("logo.png", width=150)
@@ -81,8 +95,16 @@ with tab2:
 
 with tab3:
     st.markdown("<h2 style='font-family:Cinzel;'>INVESTIGATION ARCHIVES</h2>", unsafe_allow_html=True)
+    # --- MESSAGE RESTORED HERE ---
     st.info("⚠️ SCANNING FOR DECLASSIFIED INTEL...")
-    st.write("D.H.R.U.V.A. is currently analyzing multiple residual variables across active sites. Log in to HQ for live status.")
+    st.markdown("""
+        <div class='ips-block'>
+        <b>STATUS: INITIAL PHASE</b><br>
+        D.H.R.U.V.A. is currently active at multiple undisclosed locations. We are analyzing residual variables. 
+        Case files will remain encrypted until final verification.
+        </div>
+    """, unsafe_allow_html=True)
+    
     if conn:
         try:
             df = conn.read(worksheet="Investigations", ttl=0)
@@ -90,40 +112,67 @@ with tab3:
                 st.markdown(f"<div class='ips-block'><h4>{row['Title']}</h4><p>{row['Details']}</p><b>{row['Verdict']}</b></div>", unsafe_allow_html=True)
         except: pass
 
+with tab4:
+    with st.form("report_form", clear_on_submit=True):
+        st.markdown("<h3 style='font-family:Cinzel;'>TRANSMIT ANOMALY DATA</h3>", unsafe_allow_html=True)
+        fn = st.text_input("FULL NAME *"); ph = st.text_input("CONTACT NO *")
+        lc = st.text_input("LOCATION *"); ct = st.selectbox("CATEGORY", ["Haunting", "UFO", "Other"])
+        ds = st.text_area("DETAILED DESCRIPTION *")
+        if st.form_submit_button("TRANSMIT"):
+            if fn and ds and conn:
+                new_row = pd.DataFrame([{"Timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "FULL_NAME": fn, "CONTACT_NUM": ph, "LOCATION": lc, "CATEGORY": ct, "DETAILED DESCRIPTION": ds}])
+                try:
+                    ex = conn.read(worksheet="Reports", ttl=0); up = pd.concat([ex, new_row], ignore_index=True); conn.update(worksheet="Reports", data=up)
+                    st.success("INTEL RECEIVED.")
+                except Exception as e: st.error(f"Sync Failed: {e}")
+
 with tab5:
     st.markdown("<h2 style='font-family:Cinzel;'>CONTACT HQ</h2>", unsafe_allow_html=True)
     st.markdown('<div style="background-color:#0A0A0A; border:1px solid #1A1A1A; padding:30px; text-align:center;"><a href="mailto:team.dhruva.research@gmail.com" style="color:#2ECC71; font-weight:bold; font-size:20px; text-decoration:none;">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
 
-# --- 4. THE D.H.R.U.V.A. FOOTER ---
-st.markdown("<div class='footer-container'>", unsafe_allow_html=True)
-f1, f2, f3, f4 = st.columns([2, 1, 1, 1.5])
+# --- 4. EXACT IPS STYLE FOOTER ---
+st.markdown("""
+<div class="footer-container">
+    <div style="display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1200px; margin:0 auto;">
+        
+        <div style="flex: 2; min-width: 300px; padding-right: 40px; margin-bottom: 30px;">
+            <div class="footer-col-title">D.H.R.U.V.A. RESEARCH GROUP</div>
+            <div class="footer-text">
+                Investigating the unexplained and documenting paranormal phenomena across India using scientific methodologies.
+                Bridging the gap between folklore and modern science since 2026.
+            </div>
+            <div class="footer-quote">"We don't chase ghosts. We investigate them."</div>
+        </div>
 
-with f1:
-    st.markdown("<div class='footer-title'>D.H.R.U.V.A. RESEARCH GROUP</div>", unsafe_allow_html=True)
-    st.write("Investigating the unexplained across India using scientific methodologies.")
-    st.markdown("<p style='font-style:italic; color:#00D4FF;'>\"Fear is just missing data.\"</p>", unsafe_allow_html=True)
+        <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
+            <div class="footer-col-title">QUICK LINKS</div>
+            <a href="#" class="footer-link">About Us</a>
+            <a href="#" class="footer-link">Investigations</a>
+            <a href="#" class="footer-link">Report an Incident</a>
+            <a href="#" class="footer-link">Case Files</a>
+            <a href="#" class="footer-link">Blog</a>
+            <a href="#" class="footer-link">Contact</a>
+        </div>
 
-with f2:
-    st.markdown("<div class='footer-title'>QUICK LINKS</div>", unsafe_allow_html=True)
-    st.markdown("[About Us](#the-directorate)", unsafe_allow_html=True)
-    st.markdown("[Investigations](#investigation-archives)", unsafe_allow_html=True)
+        <div style="flex: 1; min-width: 200px; margin-bottom: 30px;">
+            <div class="footer-col-title">CONNECT WITH US</div>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/dhruva.research" target="_blank" style="text-decoration:none;">
+                    <div class="social-circle">📷</div>
+                </a>
+                <div class="social-circle">f</div>
+                <div class="social-circle">▶</div>
+                <div class="social-circle">🐦</div>
+            </div>
+        </div>
 
-with f3:
-    st.markdown("<div class='footer-title'>RESOURCES</div>", unsafe_allow_html=True)
-    st.markdown("[Report Anomaly](#report-mystery)", unsafe_allow_html=True)
-
-with f4:
-    st.markdown("<div class='footer-title'>CONNECT WITH US</div>", unsafe_allow_html=True)
-    cs1, cs2 = st.columns(2)
-    with cs1:
-        try: st.image("insta_qr.png", caption="Instagram QR", width=100)
-        except: st.write("Insta QR missing")
-    with cs2:
-        try: st.image("logo.png", width=80)
-        except: st.write("🦅")
-
-st.markdown("</div>", unsafe_allow_html=True)
-st.markdown("<div style='text-align:center; font-size:12px; color:#444; padding-bottom:20px;'>© 2026 D.H.R.U.V.A. | Designed & Developed by Pranav Rahane</div>", unsafe_allow_html=True)
+    </div>
+    
+    <div style="border-top: 1px solid #333; margin-top: 30px; padding-top: 20px; text-align: center; color: #666; font-size: 12px;">
+        © 2026 D.H.R.U.V.A. Research Group. All rights reserved. | Designed & Developed by Pranav Rahane
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 # --- 5. HIDDEN HQ CONTROL ---
 if access_code == "classified":
@@ -140,3 +189,4 @@ if access_code == "classified":
                     mk = f"m{i}"
                     st.session_state['team'][mk]['name'] = st.text_input(f"Member {i} Name", st.session_state['team'][mk]['name'])
                     st.session_state['team'][mk]['bio'] = st.text_area(f"Member {i} Info", st.session_state['team'][mk]['bio'])
+            if st.button("LOGOUT"): st.session_state['auth'] = False; st.rerun()
