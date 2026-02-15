@@ -29,7 +29,7 @@ if 'team' not in st.session_state:
 
 access_code = st.query_params.to_dict().get("access")
 
-# 2. CSS STYLING & FONTAWESOME
+# 2. CSS STYLING
 st.markdown("""
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <style>
@@ -113,9 +113,10 @@ with tab5:
     st.markdown("<h2 style='font-family:Cinzel;'>CONTACT HQ</h2>", unsafe_allow_html=True)
     st.markdown('<div style="background-color:#0A0A0A; border:1px solid #1A1A1A; padding:30px; text-align:center;"><a href="mailto:team.dhruva.research@gmail.com" style="color:#2ECC71; font-weight:bold; font-size:20px; text-decoration:none;">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
 
-# --- 4. THE FOOTER (NO INDENTATION, NO QUICK LINKS) ---
-footer_html = """<style>
-.footer-container { background-color: #111; border-top: 1px solid #222; padding: 60px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;}
+# --- 4. THE FOOTER (NO INDENTATION - FIXED) ---
+footer_style = """
+<style>
+.footer-container { background-color: #111; border-top: 1px solid #222; padding: 60px 20px; margin-top: 80px; font-family: 'Raleway', sans-serif; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;}
 .footer-col { flex: 1; min-width: 300px; margin-bottom: 20px; padding: 0 20px; }
 .footer-title { font-family: 'Cinzel', serif; color: #FFF; font-size: 18px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
 .footer-text { color: #AAA; font-size: 14px; line-height: 1.6; }
@@ -123,6 +124,9 @@ footer_html = """<style>
 .social-circle { width: 50px; height: 50px; border: 1px solid #555; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #AAA; text-decoration: none; transition: 0.3s; font-size: 24px; }
 .social-circle:hover { border-color: #00D4FF; color: #00D4FF; transform: scale(1.1); box-shadow: 0 0 10px rgba(0,212,255,0.3); }
 </style>
+"""
+
+footer_content = """
 <div class="footer-container">
 <div class="footer-col" style="flex: 2;">
 <div class="footer-title">D.H.R.U.V.A. RESEARCH GROUP</div>
@@ -132,18 +136,19 @@ Investigating the unexplained and documenting paranormal phenomena across India 
 <i style="color:#00D4FF;">"Where science meets the unknown."</i>
 </div>
 </div>
-<div class="footer-col" style="flex: 1; text-align: center;">
+<div class="footer-col" style="flex: 1; display:flex; flex-direction:column; align-items:center;">
 <div class="footer-title">CONNECT WITH US</div>
 <div class="social-icons" style="justify-content: center;">
-<a href="https://www.instagram.com/dhruva.research" target="_blank" class="social-circle"><i class="fab fa-instagram"></i></a>
+<a href="https://www.instagram.com/dhruva.research_official?igsh=emQxMWMxcmNsYzA=" target="_blank" class="social-circle"><i class="fab fa-instagram"></i></a>
 </div>
 </div>
 </div>
 <div style="text-align:center; color:#444; font-size:12px; padding:20px; border-top:1px solid #222; background-color:#111;">
 © 2026 D.H.R.U.V.A. Research Group. All rights reserved. | Designed by Pranav Rahane
-</div>"""
+</div>
+"""
 
-st.markdown(footer_html, unsafe_allow_html=True)
+st.markdown(footer_style + footer_content, unsafe_allow_html=True)
 
 # --- 5. HIDDEN HQ CONTROL ---
 if access_code == "classified":
