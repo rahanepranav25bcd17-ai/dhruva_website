@@ -118,9 +118,8 @@ with tab5:
     st.markdown("<h2 style='font-family:Cinzel;'>CONTACT HQ</h2>", unsafe_allow_html=True)
     st.markdown('<div style="background-color:#0A0A0A; border:1px solid #1A1A1A; padding:30px; text-align:center;"><a href="mailto:team.dhruva.research@gmail.com" style="color:#2ECC71; font-weight:bold; font-size:20px; text-decoration:none;">✉️ team.dhruva.research@gmail.com</a></div>', unsafe_allow_html=True)
 
-# --- 4. THE IPS-STYLE FOOTER ---
-# Using strict HTML/CSS block to prevent raw code display
-st.markdown("""
+# --- 4. SAFE FOOTER RENDER ---
+footer_html = """
 <style>
 .footer-container { 
     background-color: #111; 
@@ -136,6 +135,7 @@ st.markdown("""
     flex: 1;
     min-width: 250px;
     margin-bottom: 20px;
+    padding: 0 10px;
 }
 .footer-title {
     font-family: 'Cinzel', serif;
@@ -217,7 +217,8 @@ st.markdown("""
 <div style="text-align:center; color:#444; font-size:12px; padding:20px; border-top:1px solid #222; background-color:#111;">
     © 2026 D.H.R.U.V.A. Research Group. All rights reserved. | Designed by Pranav Rahane
 </div>
-""", unsafe_allow_html=True)
+"""
+st.markdown(footer_html, unsafe_allow_html=True)
 
 # --- 5. HIDDEN HQ CONTROL ---
 if access_code == "classified":
